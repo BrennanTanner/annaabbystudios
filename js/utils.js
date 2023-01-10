@@ -29,20 +29,8 @@ export function checkURL() {
    const _id = sessionStorage.getItem('_id');
 
 if (!_id) {
-      if (path == 'login') {
-      } else if (path == 'newPiece' || (path != 'about' && path != 'gallery')) {
-         window.location.replace('./login/index.html');
-
-      } else {
-         if (!pathId) {
-            window.location.replace('../login/index.html');
-
-         } else {
-            sessionStorage.setItem('_id', pathId);
-
-         }
-      }
-   }
+   sessionStorage.setItem('_id', "63bcd12e5847f0f521b7a3fa");
+}
 }
 
 export function appendFormLink(form) {
@@ -94,7 +82,6 @@ export async function loadHeaderFooter() {
       document.getElementById('menuHome').setAttribute('href', '../index.html' )
       document.getElementById('menuGallery').setAttribute('href', '../gallery/index.html' )
       document.getElementById('menuAbout').setAttribute('href', '../about/index.html' )
-      document.getElementById('logo').setAttribute('src', '../public/Artboard 3.svg' )
    } else {
       const header = await loadTemplate('./partials/header.html');
       const footer = await loadTemplate('./partials/footer.html');
@@ -108,12 +95,10 @@ export async function loadHeaderFooter() {
       document.getElementById('menuHome').setAttribute('href', './index.html' )
       document.getElementById('menuGallery').setAttribute('href', './gallery/index.html' )
       document.getElementById('menuAbout').setAttribute('href', './about/index.html' )
-      document.getElementById('logo').setAttribute('src', './public/Artboard 3.svg' )
    }
 
    if (loggedIn) {
       document.getElementById('userControls').style.display = 'block';
-      document.getElementById('loginButton').style.display = 'none';
 
       document.getElementById('logoutButton').style.display = 'block';
       document
@@ -146,19 +131,4 @@ export async function loadHeaderFooter() {
    menuItems.forEach(function (menuItem) {
       menuItem.addEventListener('click', toggleMenu);
    });
-}
-
-export async function loadNavTitle(dataSource) {
-   const list = await dataSource.getOwnersData();
-
-   const headerTemplate = document.querySelector('.title');
-
-   const createHeaderTitle = document.createElement('h1');
-
-   createHeaderTitle.className = 'nav-title';
-
-   headerTemplate.appendChild(createHeaderTitle);
-
-   createHeaderTitle.textContent =
-      list.firstN.toUpperCase() + ' ' + list.lastN.toUpperCase();
 }

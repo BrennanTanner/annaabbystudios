@@ -14,6 +14,7 @@ export default class ArtListing {
 
       document.getElementById('loading').setAttribute('style', 'display:none;');
 
+      
       if (list.pieces) {
          list.pieces.forEach((element) => {
 

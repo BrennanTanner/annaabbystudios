@@ -8,7 +8,6 @@ import {
    checkURL,
    getLocationFromUrl,
    appendFormLink,
-   loadNavTitle,
 } from './utils.js';
 
 checkURL();
@@ -17,7 +16,6 @@ loadHeaderFooter();
 const path = getLocationFromUrl();
 
 const dataSource = new ExternalServices();
-loadNavTitle(dataSource);
 const myArt = new ArtListing(dataSource);
 const myAbout = new AboutList(dataSource);
 const myGallery = new GalleryPieces(dataSource);

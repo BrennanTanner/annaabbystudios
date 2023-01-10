@@ -105,6 +105,15 @@ nav #siteNav:after {
    font-size: 35pt;
 }
 
+.nav-subtitle {
+   font-size: 1.5em;
+   text-align: center;
+   font-weight: 300;
+   margin-top: 0;
+   color: var(--dark-grey);
+   font-size: 24pt;
+}
+
 .hamburger {
 display: none;
 }
