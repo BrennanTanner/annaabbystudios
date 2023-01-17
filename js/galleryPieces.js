@@ -111,6 +111,32 @@ export default class ArtListing {
       artSection.appendChild(artMedium);
       artSection.appendChild(artSummary);
 
+      artMainImg.onclick = async function () {
+         const screenLoad = document.querySelector('.screenLoad');
+         const boxLoad = document.querySelector('.boxLoad');
+
+         screenLoad.setAttribute('style', 'display:inline;');
+
+         let artLightbox = document.createElement('img');
+         let closeBtn = document.createElement('button');
+
+         artLightbox.setAttribute('src', element.img);
+         artLightbox.setAttribute('class', 'artLightbox');
+         closeBtn.innerHTML = 'X';
+         closeBtn.setAttribute('class', 'closeBtn');
+
+         closeBtn.onclick = async function () {
+            closeBtn.remove();
+            artLightbox.remove();
+            document
+               .querySelector('.screenLoad')
+               .setAttribute('style', 'display:none;');
+         };
+
+         boxLoad.appendChild(artLightbox);
+         boxLoad.appendChild(closeBtn);
+      };
+
       if (localLog == 'true') {
          let removeBtn = document.createElement('button');
          let coverBtn = document.createElement('button');
@@ -234,7 +260,7 @@ export default class ArtListing {
          buttons.appendChild(removeBtn);
          artSection.appendChild(buttons);
       }
-      
+
       return artSection;
    }
 }
