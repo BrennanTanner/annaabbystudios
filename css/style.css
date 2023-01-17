@@ -380,6 +380,7 @@ a {
 #footer #contacts{
    display: flex;
    text-align: center;
+   justify-content: space-evenly;
 }
 #footer #contacts a{
    margin: 10px 20px;
