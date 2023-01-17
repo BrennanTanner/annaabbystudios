@@ -45,8 +45,7 @@ if (document.getElementById('pieceSubmit')) {
 
       if (document.getElementById('isFavorite').value == 'true') {
          bodyContent.append(
-            'isFavorite',
-            document.getElementById('isFavorite').value
+            'isFavorite', 'true'
          );
       } else {
          bodyContent.append('isFavorite', 'false');
