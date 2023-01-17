@@ -652,13 +652,18 @@ width: 100%;
 
    ul {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      flex-wrap: wrap;
       justify-content: flex-start;
+      justify-content: center;
       list-style-type: none;
+      padding-left: 0;
    }
 
    .gallerSection li {
-      width: 85%;
+      background-color: rgb(226, 226, 226);
+      margin: 5px;
+      width:100px;
    }
 
    .gallerSection img {
