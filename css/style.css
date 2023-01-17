@@ -55,7 +55,6 @@ nav div {
    padding-inline-start: 0px;
    display: flex;
    flex-direction: column;
-   width: 50%;
 }
 
 nav #siteNav {
@@ -114,8 +113,7 @@ nav #siteNav:after {
    font-size: 1.5em;
    text-align: center;
    font-weight: 300;
-   margin-top: -50px;
-
+   margin-top: -10px;
    color: var(--dark-grey);
    font-size: 24pt;
 }
@@ -282,9 +280,9 @@ width: 100%;
 }
 
 .gallery-items {
-   width: 80vw;
    text-align: center;
    background-color: #f9f9f9;
+   position: relative;
 }
 
 .gallery-items h1 {
@@ -303,7 +301,7 @@ width: 100%;
 }
 
 .gallery-items > img {
-   width: 50vw;
+   height: 360px;
 }
 
 .gallery-image-content {
@@ -620,6 +618,10 @@ width: 100%;
    nav div {
       flex-direction: column;
   }
+
+  .nav-subtitle {
+   margin-top: -50px;
+}
 
    nav #siteNav {
       margin-left: 0;
