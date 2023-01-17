@@ -38,19 +38,18 @@ export default class ArtListing {
       const localLog = sessionStorage.getItem('loggedIn');
       const id = sessionStorage.getItem('_id');
 
-      let viewportWidth = window.innerWidth;
-      let height = viewportWidth * 1.428571428571429;
-      const scale =
-         'w_' + viewportWidth + ',h_' + height.toFixed(0) + ',c_fill';
+      const scale = 'h_' + 800 + ',c_fill';
 
       var UrlArray = element.img.split('/');
       UrlArray.splice(6, 0, scale);
       const scaledUrl = UrlArray.join('/');
       let artSection = document.createElement('div');
       let artImg = document.createElement('img');
+
       artSection.className = 'art-items';
       artImg.setAttribute('src', scaledUrl);
       artImg.setAttribute('class', 'lazy');
+      // artImg.setAttribute('style', "height: 360px");
       artSection.appendChild(artImg);
 
       if (localLog == 'true') {
@@ -58,6 +57,7 @@ export default class ArtListing {
          let coverBtn = document.createElement('button');
          let favoriteBtn = document.createElement('button');
          let cover = document.createElement('h3');
+         let buttons = document.createElement('div');
 
          removeBtn.innerHTML = 'Delete';
          coverBtn.innerHTML = 'Make cover';
@@ -68,6 +68,7 @@ export default class ArtListing {
          coverBtn.setAttribute('class', 'coverBtn');
          favoriteBtn.setAttribute('class', 'favoriteBtn');
          cover.setAttribute('class', 'isCover');
+         buttons.setAttribute('class', 'buttons');
 
          removeBtn.onclick = async function () {
             let headersList = {
@@ -140,13 +141,14 @@ export default class ArtListing {
             location.reload();
          };
 
-         artSection.appendChild(removeBtn);
-
+         buttons.appendChild(removeBtn);
+         buttons.appendChild(favoriteBtn);
          if (element.isCover == 'false') {
-            artSection.appendChild(coverBtn);
+            buttons.appendChild(coverBtn);
          } else {
-            artSection.appendChild(cover);
+            buttons.appendChild(cover);
          }
+         artSection.appendChild(buttons);
       }
 
       return artSection;

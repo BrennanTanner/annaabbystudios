@@ -55,6 +55,7 @@ nav div {
    padding-inline-start: 0px;
    display: flex;
    flex-direction: column;
+   width: 50%;
 }
 
 nav #siteNav {
@@ -104,7 +105,7 @@ nav #siteNav:after {
    font-size: 1.5em;
    text-align: center;
    font-weight: 300;
-   margin-bottom: 0;
+   margin-bottom: 0px;
    color: var(--dark-grey);
    font-size: 35pt;
 }
@@ -113,7 +114,8 @@ nav #siteNav:after {
    font-size: 1.5em;
    text-align: center;
    font-weight: 300;
-   margin-top: 0;
+   margin-top: -50px;
+
    color: var(--dark-grey);
    font-size: 24pt;
 }
@@ -160,12 +162,13 @@ a {
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
+   gap: 40px;
 }
 
 .art-items {
-   width: 28vw;
    text-align: center;
    background-color: #f9f9f9;
+   position: relative;
 }
 
 .art-items p {
@@ -175,7 +178,7 @@ a {
 }
 
 .art-items > img {
-   width: 28vw;
+height: 360px;
 }
 
 .screenLoad {
@@ -205,13 +208,37 @@ a {
    position: absolute;
 }
 
-.removeBtn {
-   background: #c3402f;
+.buttons{
+   display: flex;
+background-color: #00000076;
+flex-direction: column;
+align-items: flex-start;
+width: 100%;
+   position: absolute;
+   bottom: -60px;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+}
+
+.isCover{
+   background: #9c9c9c;
    padding: 8px 20px 8px 20px;
-   margin: 20px 5px;
+   margin: 10px 10px;
    border: none;
    color: #fff;
    font-size: 15px;
+   width: 80px;
+}
+
+.removeBtn {
+   background: #c3402f;
+   padding: 8px 20px 8px 20px;
+   margin: 10px 10px;
+   border: none;
+   color: #fff;
+   font-size: 15px;
+   width: 120px;
 }
 
 .removeBtn:hover {
@@ -221,10 +248,11 @@ a {
 .favoriteBtn {
    background: #5086b5;
    padding: 8px 20px 8px 20px;
-   margin: 20px 5px;
+   margin: 0px 10px;
    border: none;
    color: #fff;
    font-size: 15px;
+   width: 120px;
 }
 
 .favoriteBtn:hover {
@@ -234,10 +262,11 @@ a {
 .coverBtn {
    background: #5086b5;
    padding: 8px 20px 8px 20px;
-   margin: 20px 5px;
+   margin: 10px 10px;
    border: none;
    color: #fff;
    font-size: 15px;
+   width: 120px;
 }
 
 .coverBtn:hover {
@@ -375,18 +404,23 @@ a {
 }
 
 #footer {
+   background-color: #f7f7f7;
    margin-top: 50px;
 }
-#footer #contacts{
+#footer #contacts {
    display: flex;
    text-align: center;
    justify-content: space-evenly;
 }
-#footer #contacts a{
-   margin: 10px 20px;
+#footer #contacts a {
+   margin: 10px 0px;
+}
+
+#footer #contacts a h5{
+   margin: 5px 0px;
 }
 #footer img {
-   max-width: 40px;
+   max-width: 30px;
 }
 
 #login fieldset {
@@ -528,11 +562,12 @@ a {
 }
 
 @media screen and (max-width: 780px) {
+   
    .nav-title:after {
       background-color: #8c8c8c;
       display: block;
       content: '';
-      width: 9em;
+      width: fit-content;
       height: 1px;
       margin: 20px auto 30px auto;
    }
@@ -542,7 +577,7 @@ a {
       position: fixed;
       z-index: 100;
       top: 1rem;
-      right: 1rem;
+      left: 1rem;
       padding: 4px;
       border: none;
       cursor: pointer;
@@ -556,16 +591,14 @@ a {
    }
 
    .showMenu {
-      transform: translateY(0);
+      transform: translate(0);
+      width: 50%;
    }
 
-   nav div {
-      display: block;
-   }
 
    nav ul {
       position: fixed;
-      transform: translateY(-100%);
+      transform: translate(-100%);
       transition: transform 0.2s;
       top: -20px;
       left: 0;
@@ -578,6 +611,15 @@ a {
       list-style: none;
       padding-top: 5rem;
    }
+   
+   nav ul li {
+      padding: 10px;
+      margin: 5px;
+   }
+
+   nav div {
+      flex-direction: column;
+  }
 
    nav #siteNav {
       margin-left: 0;
@@ -641,14 +683,27 @@ a {
       flex-direction: column;
       justify-content: center;
       align-content: center;
-      gap: 10px;
-      margin-top: 140px;
+
    }
    .art-items {
-      width: 90%;
+      position: relative;
    }
    .art-items img {
-      width: 100%;
+      height: fit-content;
+      width: 100vw;
+   }
+
+   .buttons{
+      display: flex;
+   background-color: #00000076;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
    }
 
    .aboutSection {
@@ -701,8 +756,7 @@ a {
       max-height: 50%;
    }
 
-   #footer #contacts{
+   #footer #contacts {
       flex-direction: column;
    }
-
 }

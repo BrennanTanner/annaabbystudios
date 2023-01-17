@@ -116,6 +116,7 @@ export default class ArtListing {
          let coverBtn = document.createElement('button');
          let favoriteBtn = document.createElement('button');
          let cover = document.createElement('h3');
+         let buttons = document.createElement('div');
 
          removeBtn.innerHTML = 'Delete';
          coverBtn.innerHTML = 'Make cover';
@@ -132,6 +133,7 @@ export default class ArtListing {
          coverBtn.setAttribute('class', 'coverBtn');
          favoriteBtn.setAttribute('class', 'favoriteBtn');
          cover.setAttribute('class', 'isCover');
+         buttons.setAttribute('class', 'buttons');
 
          removeBtn.onclick = async function () {
             let headersList = {
@@ -224,13 +226,15 @@ export default class ArtListing {
          };
 
          if (element.isCover == 'false') {
-            artSection.appendChild(coverBtn);
+            buttons.appendChild(coverBtn);
          } else {
-            artSection.appendChild(cover);
+            buttons.appendChild(cover);
          }
-         artSection.appendChild(favoriteBtn);
-         artSection.appendChild(removeBtn);
+         buttons.appendChild(favoriteBtn);
+         buttons.appendChild(removeBtn);
+         artSection.appendChild(buttons);
       }
+      
       return artSection;
    }
 }
