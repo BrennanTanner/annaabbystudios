@@ -1,4 +1,4 @@
-import { checkStatus } from "./admin.js";
+import { checkStatus } from './admin.js';
 
 export default class ArtListing {
    constructor(dataSource) {
@@ -14,12 +14,9 @@ export default class ArtListing {
 
       document.getElementById('loading').setAttribute('style', 'display:none;');
 
-      
       if (list.pieces) {
          list.pieces.forEach((element) => {
-
-            console.log(element.isFavorite);
-            if(element.isFavorite == 'true'){
+            if (element.isFavorite == 'true') {
                template.append(this.artPieceTemplate(element));
             }
          });
@@ -38,10 +35,13 @@ export default class ArtListing {
    }
 
    artPieceTemplate(element) {
+      const localLog = sessionStorage.getItem('loggedIn');
+      const id = sessionStorage.getItem('_id');
 
-let viewportWidth = window.innerWidth;
-let height = viewportWidth * 1.428571428571429;
-      const scale = 'w_'+viewportWidth+',h_'+height.toFixed(0)+',c_fill';
+      let viewportWidth = window.innerWidth;
+      let height = viewportWidth * 1.428571428571429;
+      const scale =
+         'w_' + viewportWidth + ',h_' + height.toFixed(0) + ',c_fill';
 
       var UrlArray = element.img.split('/');
       UrlArray.splice(6, 0, scale);
@@ -50,8 +50,104 @@ let height = viewportWidth * 1.428571428571429;
       let artImg = document.createElement('img');
       artSection.className = 'art-items';
       artImg.setAttribute('src', scaledUrl);
-      artImg.setAttribute('class', 'favoriteImg');
+      artImg.setAttribute('class', 'lazy');
       artSection.appendChild(artImg);
+
+      if (localLog == 'true') {
+         let removeBtn = document.createElement('button');
+         let coverBtn = document.createElement('button');
+         let favoriteBtn = document.createElement('button');
+         let cover = document.createElement('h3');
+
+         removeBtn.innerHTML = 'Delete';
+         coverBtn.innerHTML = 'Make cover';
+         favoriteBtn.innerHTML = 'Unfavorite';
+         cover.innerHTML = element.medium + ' cover';
+
+         removeBtn.setAttribute('class', 'removeBtn');
+         coverBtn.setAttribute('class', 'coverBtn');
+         favoriteBtn.setAttribute('class', 'favoriteBtn');
+         cover.setAttribute('class', 'isCover');
+
+         removeBtn.onclick = async function () {
+            let headersList = {
+               Accept: '*/*',
+            };
+            let response = await fetch(
+               'https://artportfolio.onrender.com/api/deletepiece/' +
+                  id +
+                  '/' +
+                  element._id,
+               {
+                  method: 'PATCH',
+                  headers: headersList,
+               }
+            );
+
+            let data = await response.text();
+            alert(` Removed Piece`);
+            location.reload();
+         };
+
+         coverBtn.onclick = async function () {
+            let headersList = {
+               Accept: '*/*',
+            };
+            document
+               .querySelector('.screenLoad')
+               .setAttribute('style', 'display:inline;');
+            let response = await fetch(
+               'https://artportfolio.onrender.com/api/updatecovers/' +
+                  id +
+                  '/' +
+                  element._id,
+               {
+                  method: 'PATCH',
+                  headers: headersList,
+               }
+            );
+
+            alert(`Cover changed`);
+            location.reload();
+         };
+
+         favoriteBtn.onclick = async function () {
+            let bodyContent = new FormData();
+            bodyContent.append('isFavorite', 'false');
+
+            if (element.idFavorite == true) {
+            }
+            let headersList = {
+               Accept: '*/*',
+            };
+            document
+               .querySelector('.screenLoad')
+               .setAttribute('style', 'display:inline;');
+            let response = await fetch(
+               'https://artportfolio.onrender.com/api/update/' +
+                  id +
+                  '/' +
+                  element._id,
+               {
+                  method: 'PATCH',
+                  headers: headersList,
+                  body: bodyContent,
+               }
+            );
+
+            alert(`Piece Unfavorited`);
+
+            location.reload();
+         };
+
+         artSection.appendChild(removeBtn);
+
+         if (element.isCover == 'false') {
+            artSection.appendChild(coverBtn);
+         } else {
+            artSection.appendChild(cover);
+         }
+      }
 
       return artSection;
    }

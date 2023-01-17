@@ -52,6 +52,8 @@ if (document.getElementById('pieceSubmit')) {
          bodyContent.append('isFavorite', 'false');
       }
 
+      bodyContent.append('isCover', 'false');
+
       bodyContent.append(
          'image',
          document.getElementById('mainPicture').files[0]

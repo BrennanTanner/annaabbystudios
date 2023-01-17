@@ -8,6 +8,7 @@ import {
    checkURL,
    getLocationFromUrl,
    appendFormLink,
+   lazyLoad,
 } from './utils.js';
 
 checkURL();
@@ -28,6 +29,9 @@ if (path == 'about') {
    appendFormLink('newpiece/');
 } else if (path == 'newUser') {
    appendFormLink('newuser/');
+} else if (path == 'pieceUploaded.html') {
 } else {
    myArt.init();
 }
+
+lazyLoad();

@@ -28,9 +28,9 @@ export function checkURL() {
    const pathId = getIdFromUrl();
    const _id = sessionStorage.getItem('_id');
 
-if (!_id) {
-   sessionStorage.setItem('_id', "63bcd12e5847f0f521b7a3fa");
-}
+   if (!_id) {
+      sessionStorage.setItem('_id', '63bcd12e5847f0f521b7a3fa');
+   }
 }
 
 export function appendFormLink(form) {
@@ -55,20 +55,26 @@ export function getLocationFromUrl() {
 }
 
 export function getIdFromUrl() {
-   var URLArray = window.location.pathname.split('?');
+   var URLArray = window.location.href.toString().split('?');
 
    return URLArray[1];
+}
+
+export function getUrlFromUrl() {
+   var URLArray = window.location.href.toString().split('?');
+
+   return URLArray[0];
 }
 
 export async function loadHeaderFooter() {
    const loggedIn = await checkStatus();
    const path = getLocationFromUrl();
-
    if (
       path == 'about' ||
       path == 'gallery' ||
       path == 'newPiece' ||
-      path == 'newUser'
+      path == 'newUser' ||
+      path == 'pieceUploaded.html'
    ) {
       const header = await loadTemplate('../partials/header.html');
       const footer = await loadTemplate('../partials/footer.html');
@@ -79,22 +85,30 @@ export async function loadHeaderFooter() {
       renderWithTemplate(header, headerElement);
       renderWithTemplate(footer, footerElement);
 
-      document.getElementById('menuHome').setAttribute('href', '../index.html' )
-      document.getElementById('menuGallery').setAttribute('href', '../gallery/index.html' )
-      document.getElementById('menuAbout').setAttribute('href', '../about/index.html' )
+      document.getElementById('menuHome').setAttribute('href', '../index.html');
+      document
+         .getElementById('menuGallery')
+         .setAttribute('href', '../gallery/index.html');
+      document
+         .getElementById('menuAbout')
+         .setAttribute('href', '../about/index.html');
    } else {
       const header = await loadTemplate('./partials/header.html');
       const footer = await loadTemplate('./partials/footer.html');
 
       const headerElement = document.getElementById('main-header');
       const footerElement = document.getElementById('main-footer');
-   
+
       renderWithTemplate(header, headerElement);
       renderWithTemplate(footer, footerElement);
 
-      document.getElementById('menuHome').setAttribute('href', './index.html' )
-      document.getElementById('menuGallery').setAttribute('href', './gallery/index.html' )
-      document.getElementById('menuAbout').setAttribute('href', './about/index.html' )
+      document.getElementById('menuHome').setAttribute('href', './index.html');
+      document
+         .getElementById('menuGallery')
+         .setAttribute('href', './gallery/index.html');
+      document
+         .getElementById('menuAbout')
+         .setAttribute('href', './about/index.html');
    }
 
    if (loggedIn) {
@@ -103,7 +117,8 @@ export async function loadHeaderFooter() {
       document.getElementById('logoutButton').style.display = 'block';
       document
          .getElementById('logoutButton')
-         .addEventListener('click', function () {
+         .addEventListener('click', function (e) {
+            e.preventDefault();
             logout();
          });
    }
@@ -130,5 +145,37 @@ export async function loadHeaderFooter() {
 
    menuItems.forEach(function (menuItem) {
       menuItem.addEventListener('click', toggleMenu);
+   });
+}
+
+export async function lazyLoad() {
+   document.addEventListener('DOMContentLoaded', function () {
+      var lazyloadImages = document.querySelectorAll('img.lazy');
+      var lazyloadThrottleTimeout;
+
+      function lazyload() {
+         if (lazyloadThrottleTimeout) {
+            clearTimeout(lazyloadThrottleTimeout);
+         }
+
+         lazyloadThrottleTimeout = setTimeout(function () {
+            var scrollTop = window.pageYOffset;
+            lazyloadImages.forEach(function (img) {
+               if (img.offsetTop < window.innerHeight + scrollTop) {
+                  img.src = img.dataset.src;
+                  img.classList.remove('lazy');
+               }
+            });
+            if (lazyloadImages.length == 0) {
+               document.removeEventListener('scroll', lazyload);
+               window.removeEventListener('resize', lazyload);
+               window.removeEventListener('orientationChange', lazyload);
+            }
+         }, 20);
+      }
+
+      document.addEventListener('scroll', lazyload);
+      window.addEventListener('resize', lazyload);
+      window.addEventListener('orientationChange', lazyload);
    });
 }
