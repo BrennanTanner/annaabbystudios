@@ -21,6 +21,7 @@ const myArt = new ArtListing(dataSource);
 const myAbout = new AboutList(dataSource);
 const myGallery = new GalleryPieces(dataSource);
 
+
 if (path == 'about') {
    myAbout.init();
 } else if (path == 'gallery') {

@@ -1,4 +1,4 @@
-import { getIdFromUrl, getUrlFromUrl } from './utils.js';
+import { getIdFromUrl, getUrlFromUrl, lazyLoad } from './utils.js';
 
 export default class ArtListing {
    constructor(dataSource) {
@@ -57,6 +57,15 @@ export default class ArtListing {
             template.append(this.artPieceTemplate(element));
          }
       });
+
+      const items = document.getElementsByClassName('gallery-items');
+      for (let i = 0; i < items.length; i++) {
+
+         const x = items[i].children[1].naturalHeight / 360;
+         items[i].children[0].setAttribute('style', 'max-width:'+items[i].children[1].naturalWidth / x+'px;');
+         
+      }
+
    }
 
    setCovers(element, tag) {
@@ -74,7 +83,6 @@ export default class ArtListing {
          }
       });
 
-      cover.setAttribute('class', 'lazy');
 
       return cover;
    }
@@ -91,10 +99,17 @@ export default class ArtListing {
       let artSummary = document.createElement('p');
       let imageArea = document.createElement('div');
 
+      const scale = 'h_720';
+
+      var UrlArray = element.img.split('/');
+      UrlArray.splice(6, 0, scale);
+      const scaledUrl = UrlArray.join('/');
+
       artSection.className = 'gallery-items';
-      artMainImg.setAttribute('src', element.img);
+      artMainImg.setAttribute('src', scaledUrl);
       artMainImg.setAttribute('class', 'lazy');
       artTitle.textContent = element.title.toUpperCase();
+      
       artMedium.textContent = element.medium;
       artSummary.textContent = element.aboutBody;
       imageArea.className = 'gallery-image-content';
@@ -108,7 +123,6 @@ export default class ArtListing {
       artSection.appendChild(artTitle);
       artSection.appendChild(artMainImg);
       artSection.appendChild(imageArea);
-      artSection.appendChild(artMedium);
       artSection.appendChild(artSummary);
 
       artMainImg.onclick = async function () {
