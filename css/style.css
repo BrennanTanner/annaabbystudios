@@ -481,11 +481,8 @@ width: 100%;
    flex-direction: column-reverse;
    text-align: center;
    align-items: center;
-
 }
-.gallerSection li.pointer {
-   cursor: pointer;
- }
+
 
 .gallerSection img {
    width: 178px;
@@ -493,6 +490,7 @@ width: 100%;
    border-style: solid;
    border-color: #ddd;
    padding: 6px !important;
+   cursor: pointer;
 }
 
 .lds-roller div {
