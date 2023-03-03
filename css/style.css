@@ -481,7 +481,11 @@ width: 100%;
    flex-direction: column-reverse;
    text-align: center;
    align-items: center;
+
 }
+.gallerSection li.pointer {
+   cursor: pointer;
+ }
 
 .gallerSection img {
    width: 178px;
